@@ -23,10 +23,12 @@ export default (url, response, watchedState) => {
     watchedState.error = i18n.t('invalidRss');
     return;
   }
-  const content = parser.parseFromString(response.data.contents, 'application/xml');
-  watchedState.items.push(url);
-  const feedTitle = content.querySelector('title').textContent;
-  const feedDescription = content.querySelector('description').textContent;
-  watchedState.feeds.unshift({ feedTitle, feedDescription, url });
-  watchedState.posts.unshift(...getItems(content));
+  if (response.data?.status?.http_code === 200) {
+    const content = parser.parseFromString(response.data.contents, 'application/xml');
+    watchedState.items.push(url);
+    const feedTitle = content.querySelector('title').textContent;
+    const feedDescription = content.querySelector('description').textContent;
+    watchedState.feeds.unshift({ feedTitle, feedDescription, url });
+    watchedState.posts.unshift(...getItems(content));
+  }
 };
