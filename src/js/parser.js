@@ -1,7 +1,7 @@
 import i18n from './i18n';
 import { uniqueId } from 'lodash';
 
-const getItems = (content) => {
+export const getItems = (content) => {
   const items = content.querySelectorAll('item');
   const rssLink = [];
   items.forEach((item) => {

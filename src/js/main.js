@@ -4,13 +4,14 @@ import watchedState from './state'
 import * as yup from 'yup'
 import axios, { AxiosError } from 'axios'
 import parser from './parser'
+import postsUpdating from './postUpdating'
 
 
 const form = document.querySelector('form');
 const posts = document.querySelector('.posts');
 
 
-// postsUpdating(watchedState);
+postsUpdating(watchedState);
 
 form.addEventListener('submit', (event) => {
   event.preventDefault();
