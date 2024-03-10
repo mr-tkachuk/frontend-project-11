@@ -19,7 +19,7 @@ export const getItems = (content) => {
 const parser = new DOMParser();
 
 export default (url, response, watchedState) => {
-  if (response.data.status.http_code === 525) {
+  if (response.data?.status?.http_code === 525) {
     watchedState.error = i18n.t('invalidRss');
     return;
   }
