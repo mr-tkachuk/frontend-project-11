@@ -16,9 +16,10 @@ export default function postsUpdating(state) {
         }
       })
       .catch(() => {
+        // eslint-disable-next-line no-param-reassign
         state.error = i18n.t('networkError');
-      })
-  })
+      });
+  });
 
   setTimeout(() => {
     postsUpdating(state);

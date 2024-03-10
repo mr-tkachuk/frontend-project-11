@@ -1,5 +1,5 @@
-import i18n from './i18n';
 import { uniqueId } from 'lodash';
+import i18n from './i18n';
 
 export const getItems = (content) => {
   const items = content.querySelectorAll('item');
@@ -20,15 +20,14 @@ const parser = new DOMParser();
 
 export default (url, response, watchedState) => {
   if (response.data?.status?.http_code === 525) {
+    // eslint-disable-next-line no-param-reassign
     watchedState.error = i18n.t('invalidRss');
     return;
   }
-  if (response.data?.status?.http_code === 200) {
-    const content = parser.parseFromString(response.data.contents, 'application/xml');
-    watchedState.items.push(url);
-    const feedTitle = content.querySelector('title').textContent;
-    const feedDescription = content.querySelector('description').textContent;
-    watchedState.feeds.unshift({ feedTitle, feedDescription, url });
-    watchedState.posts.unshift(...getItems(content));
-  }
+  const content = parser.parseFromString(response.data.contents, 'application/xml');
+  watchedState.items.push(url);
+  const feedTitle = content.querySelector('title')?.textContent;
+  const feedDescription = content.querySelector('description')?.textContent;
+  watchedState.feeds.unshift({ feedTitle, feedDescription, url });
+  watchedState.posts.unshift(...getItems(content));
 };

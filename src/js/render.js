@@ -1,5 +1,6 @@
-import i18n from './i18n'
-import watchedState from './state'
+import i18n from './i18n';
+// eslint-disable-next-line import/no-cycle
+import watchedState from './state';
 
 const message = document.querySelector('.feedback');
 const input = document.querySelector('input');
@@ -8,14 +9,14 @@ const errorsRender = (key) => {
   input.classList.add('is-invalid');
   message.classList.remove('text-success');
   message.classList.add('text-danger');
-}
+};
 const successRender = () => {
   message.textContent = i18n.t('success');
   message.classList.remove('text-danger');
   message.classList.add('text-success');
   input.classList.remove('is-invalid');
   input.value = '';
-}
+};
 const feedsRender = (value) => {
   const feeds = document.querySelector('.feeds');
   feeds.textContent = '';
@@ -67,7 +68,7 @@ const postsRender = () => {
     item.classList.add('list-group-item', 'd-flex', 'justify-content-between', 'align-items-start', 'border-0', 'border-end-0');
     const link = document.createElement('a');
     link.href = post.postLink;
-    link.classList.add(...watchedState.viewedPostIds.includes(post.id) ? ['fw-normal','link-secondary'] : 'fw-bold')
+    link.classList.add(...watchedState.viewedPostIds.includes(post.id) ? ['fw-normal', 'link-secondary'] : 'fw-bold');
     link.setAttribute('data-id', post.id);
     link.setAttribute('target', '_blank');
     link.setAttribute('rel', 'noopener noreferrer');
@@ -90,8 +91,9 @@ const title = document.querySelector('.modal-title');
 const description = document.querySelector('.modal-body');
 const footer = document.querySelector('.modal-footer');
 const link = footer.querySelector('a');
-const modalRender = (currentPostId) => {
-  const { postTitle, postDescription, postLink } = watchedState.posts.find(({id}) => id === currentPostId)
+const modalRender = (postId) => {
+  const { postTitle, postDescription, postLink } = watchedState.posts
+    .find(({ id }) => id === postId);
   title.textContent = postTitle;
   description.textContent = postDescription;
   link.href = postLink;

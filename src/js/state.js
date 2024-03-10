@@ -1,5 +1,6 @@
-import onChange from 'on-change'
-import render from './render'
+import onChange from 'on-change';
+// eslint-disable-next-line import/no-cycle
+import render from './render';
 
 const state = {
   error: '',
