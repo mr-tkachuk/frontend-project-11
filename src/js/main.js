@@ -6,6 +6,7 @@ import axios, { AxiosError } from 'axios';
 import watchedState from './state';
 import parser from './parser';
 import postsUpdating from './postUpdating';
+import i18n from './i18n';
 
 const form = document.querySelector('form');
 const posts = document.querySelector('.posts');
@@ -21,6 +22,10 @@ form.addEventListener('submit', (event) => {
     .then(() => axios.get(allOriginsUrl))
     .then((response) => parser(url, response, watchedState))
     .catch((e) => {
+      if (e.message === 'invalidRss') {
+        watchedState.error = i18n.t('invalidRss');
+        return;
+      }
       if (e instanceof AxiosError) {
         watchedState.error = 'networkError';
         return;
