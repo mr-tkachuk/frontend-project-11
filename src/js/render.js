@@ -68,7 +68,7 @@ const postsRender = () => {
     item.classList.add('list-group-item', 'd-flex', 'justify-content-between', 'align-items-start', 'border-0', 'border-end-0');
     const link = document.createElement('a');
     link.href = post.postLink;
-    link.classList.add(...watchedState.viewedPostIds.includes(post.id) ? ['fw-normal', 'link-secondary'] : 'fw-bold');
+    link.classList.add(...watchedState.viewedPostIds.includes(post.id) ? ['fw-normal', 'link-secondary'] : ['fw-bold']);
     link.setAttribute('data-id', post.id);
     link.setAttribute('target', '_blank');
     link.setAttribute('rel', 'noopener noreferrer');
